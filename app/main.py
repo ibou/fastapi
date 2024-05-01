@@ -58,7 +58,7 @@ def find_post(id: int):
             return post
 
 
-def find_post_index(id: int):
+def find_index_post(id: int):
     for index, post in enumerate(my_posts):
         if post["id"] == id:
             return index
@@ -100,8 +100,8 @@ def get_lastest_post():
 
 @app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(id: int):
-    index = find_post_index(id)
-    if not index:
+    index = find_index_post(id) 
+    if index == None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"post with id : {id} was not found",
@@ -112,7 +112,7 @@ def delete_post(id: int):
 
 @app.put("/posts/{id}")
 def update_post(id: int, post: Post):
-    index = find_post_index(id)
+    index = find_index_post(id)
  
     if index == None:
         raise HTTPException(
