@@ -1,4 +1,5 @@
-from sqlalchemy import TIMESTAMP, Column, Integer, String, Boolean, func
+from sqlalchemy import TIMESTAMP, Column, Integer, String, Boolean, func, ForeignKey
+from sqlalchemy.orm import relationship
 from .database import Base
 
 class Post(Base):
@@ -11,7 +12,10 @@ class Post(Base):
     created_at = Column(
         TIMESTAMP(timezone=True), server_default=func.CURRENT_TIMESTAMP(), nullable=False
     )
+    owner_id = Column(Integer, ForeignKey(
+        "users.id", ondelete="CASCADE"), nullable=False)
     
+    owner = relationship("User")
 class User(Base):
     __tablename__ = "users"
 
@@ -21,4 +25,11 @@ class User(Base):
     created_at = Column(
         TIMESTAMP(timezone=True), server_default=func.CURRENT_TIMESTAMP(), nullable=False
     )
+    # phone_number = Column(String)
     
+class Vote(Base):
+    __tablename__ = "votes"
+    user_id = Column(Integer, ForeignKey(
+        "users.id", ondelete="CASCADE"), primary_key=True) 
+    post_id = Column(Integer, ForeignKey(
+        "posts.id", ondelete="CASCADE"), primary_key=True)
