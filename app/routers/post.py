@@ -12,14 +12,14 @@ def get_posts(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth2.get_current_user),
     limit: int = 10, skip: int = 10, search: str = "",):
-    print( search)
-    posts = (
-        db.query(models.Post)
-        .filter(models.Post.title.icontains(search))
-        .limit(limit)
-        .offset(skip)
-        .all()
-    )
+     
+    # posts = (
+    #     db.query(models.Post)
+    #     .filter(models.Post.title.icontains(search))
+    #     .limit(limit)
+    #     .offset(skip)
+    #     .all()
+    # )
     results = (
         db.query(models.Post, func.count(models.Vote.post_id).label("votes"))
         .join(models.Vote, models.Vote.post_id == models.Post.id, isouter=True)

@@ -865,7 +865,7 @@
         "kind": 2,
         "importPath": "app.routers.post",
         "description": "app.routers.post",
-        "peekOfCode": "def get_posts(\n    db: Session = Depends(get_db),\n    current_user: int = Depends(oauth2.get_current_user),\n    limit: int = 10, skip: int = 10, search: str = \"\",):\n    print( search)\n    posts = (\n        db.query(models.Post)\n        .filter(models.Post.title.icontains(search))\n        .limit(limit)\n        .offset(skip)",
+        "peekOfCode": "def get_posts(\n    db: Session = Depends(get_db),\n    current_user: int = Depends(oauth2.get_current_user),\n    limit: int = 10, skip: int = 10, search: str = \"\",):\n    # posts = (\n    #     db.query(models.Post)\n    #     .filter(models.Post.title.icontains(search))\n    #     .limit(limit)\n    #     .offset(skip)\n    #     .all()",
         "detail": "app.routers.post",
         "documentation": {}
     },
@@ -910,7 +910,7 @@
         "kind": 5,
         "importPath": "app.routers.post",
         "description": "app.routers.post",
-        "peekOfCode": "router = APIRouter(prefix=\"/posts\", tags=[\"Posts\"])\n# @router.get(\"/\", response_model=list[schemas.Post])\n@router.get(\"/\", response_model=list[schemas.PostOut])\ndef get_posts(\n    db: Session = Depends(get_db),\n    current_user: int = Depends(oauth2.get_current_user),\n    limit: int = 10, skip: int = 10, search: str = \"\",):\n    print( search)\n    posts = (\n        db.query(models.Post)",
+        "peekOfCode": "router = APIRouter(prefix=\"/posts\", tags=[\"Posts\"])\n# @router.get(\"/\", response_model=list[schemas.Post])\n@router.get(\"/\", response_model=list[schemas.PostOut])\ndef get_posts(\n    db: Session = Depends(get_db),\n    current_user: int = Depends(oauth2.get_current_user),\n    limit: int = 10, skip: int = 10, search: str = \"\",):\n    # posts = (\n    #     db.query(models.Post)\n    #     .filter(models.Post.title.icontains(search))",
         "detail": "app.routers.post",
         "documentation": {}
     },
@@ -928,7 +928,16 @@
         "kind": 2,
         "importPath": "app.routers.user",
         "description": "app.routers.user",
-        "peekOfCode": "def get_user(id: int, db: Session = Depends(get_db)):\n    user = db.query(models.User).filter(models.User.id == id).first()\n    if not user:\n        raise HTTPException(\n            status_code=status.HTTP_404_NOT_FOUND,\n            detail=f\"user with id : {id} was not found\",\n        )\n    return user",
+        "peekOfCode": "def get_user(id: int, db: Session = Depends(get_db)):\n    user = db.query(models.User).filter(models.User.id == id).first()\n    if not user:\n        raise HTTPException(\n            status_code=status.HTTP_404_NOT_FOUND,\n            detail=f\"user with id : {id} was not found\",\n        )\n    return user\n# get all users from database\n@router.get(\"/\", response_model=list[schemas.UserOut])",
+        "detail": "app.routers.user",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_users",
+        "kind": 2,
+        "importPath": "app.routers.user",
+        "description": "app.routers.user",
+        "peekOfCode": "def get_all_users(db: Session = Depends(get_db), email: str = \"\"):\n    # search filter user by email\n    users = db.query(models.User).filter(models.User.email.contains(email)).all()\n    return users",
         "detail": "app.routers.user",
         "documentation": {}
     },
