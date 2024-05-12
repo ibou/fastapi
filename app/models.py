@@ -25,7 +25,6 @@ class User(Base):
     created_at = Column(
         TIMESTAMP(timezone=True), server_default=func.CURRENT_TIMESTAMP(), nullable=False
     )
-    # phone_number = Column(String)
     
 class Vote(Base):
     __tablename__ = "votes"
