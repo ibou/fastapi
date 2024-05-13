@@ -537,6 +537,14 @@
         "documentation": {}
     },
     {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
         "label": "sessionmaker",
         "importPath": "sqlalchemy.orm",
         "description": "sqlalchemy.orm",
@@ -566,14 +574,6 @@
         "description": "pydantic_settings",
         "isExtraImport": true,
         "detail": "pydantic_settings",
-        "documentation": {}
-    },
-    {
-        "label": "declarative_base",
-        "importPath": "sqlalchemy.ext.declarative",
-        "description": "sqlalchemy.ext.declarative",
-        "isExtraImport": true,
-        "detail": "sqlalchemy.ext.declarative",
         "documentation": {}
     },
     {
@@ -696,6 +696,79 @@
         "description": "passlib.context",
         "isExtraImport": true,
         "detail": "passlib.context",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "add",
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "isExtraImport": true,
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "BankAccount",
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "isExtraImport": true,
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "divide",
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "isExtraImport": true,
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "InsufficientFunds",
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "isExtraImport": true,
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "multiply",
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "isExtraImport": true,
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "substract",
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "isExtraImport": true,
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "TestClient",
+        "importPath": "fastapi.testclient",
+        "description": "fastapi.testclient",
+        "isExtraImport": true,
+        "detail": "fastapi.testclient",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "app.main",
+        "description": "app.main",
+        "isExtraImport": true,
+        "detail": "app.main",
         "documentation": {}
     },
     {
@@ -937,7 +1010,7 @@
         "kind": 2,
         "importPath": "app.routers.user",
         "description": "app.routers.user",
-        "peekOfCode": "def get_all_users(db: Session = Depends(get_db), email: str = \"\"):\n    # search filter user by email\n    users = db.query(models.User).filter(models.User.email.contains(email)).all()\n    return users",
+        "peekOfCode": "def get_all_users(db: Session = Depends(get_db), email: str = \"\"):\n    users = db.query(models.User).filter(models.User.email.contains(email)).all()\n    return users",
         "detail": "app.routers.user",
         "documentation": {}
     },
@@ -966,6 +1039,60 @@
         "description": "app.routers.vote",
         "peekOfCode": "router = APIRouter(prefix=\"/votes\", tags=[\"Votes\"])\n@router.post('/', status_code=status.HTTP_201_CREATED)\ndef vote(vote: schemas.Vote, db: Session=Depends(database.get_db), \n         current_user: int=Depends(oauth2.get_current_user)):\n    post = db.query(models.Post).filter(models.Post.id == vote.post_id).first()\n    if not post:\n      raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f\"Post with id {vote.post_id} not found...\")\n    vote_query = db.query(models.Vote).filter(\n      models.Vote.post_id == vote.post_id, models.Vote.user_id == current_user.id)\n    found_vote = vote_query.first() ",
         "detail": "app.routers.vote",
+        "documentation": {}
+    },
+    {
+        "label": "InsufficientFunds",
+        "kind": 6,
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "peekOfCode": "class InsufficientFunds(Exception):\n    pass\nclass BankAccount():\n    def __init__(self, starting_balance: int = 0):\n        self.balance = starting_balance\n    def deposit(self, amount: int) -> int:\n        self.balance += amount\n        return self.balance\n    def withdraw(self, amount: int) -> int:\n        if amount > self.balance:",
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "BankAccount",
+        "kind": 6,
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "peekOfCode": "class BankAccount():\n    def __init__(self, starting_balance: int = 0):\n        self.balance = starting_balance\n    def deposit(self, amount: int) -> int:\n        self.balance += amount\n        return self.balance\n    def withdraw(self, amount: int) -> int:\n        if amount > self.balance:\n           raise InsufficientFunds(\"Insufficient funds in account\")\n        self.balance -= amount",
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "add",
+        "kind": 2,
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "peekOfCode": "def add(num1: int, num2: int) -> int:\n    return num1 + num2\ndef multiply(num1: int, num2: int) -> int:\n    return num1 * num2\ndef divide(num1: int, num2: int) -> float:\n    return num1 / num2\ndef substract(num1: int, num2: int) -> int:\n    return num1 - num2\nclass InsufficientFunds(Exception):\n    pass",
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "multiply",
+        "kind": 2,
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "peekOfCode": "def multiply(num1: int, num2: int) -> int:\n    return num1 * num2\ndef divide(num1: int, num2: int) -> float:\n    return num1 / num2\ndef substract(num1: int, num2: int) -> int:\n    return num1 - num2\nclass InsufficientFunds(Exception):\n    pass\nclass BankAccount():\n    def __init__(self, starting_balance: int = 0):",
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "divide",
+        "kind": 2,
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "peekOfCode": "def divide(num1: int, num2: int) -> float:\n    return num1 / num2\ndef substract(num1: int, num2: int) -> int:\n    return num1 - num2\nclass InsufficientFunds(Exception):\n    pass\nclass BankAccount():\n    def __init__(self, starting_balance: int = 0):\n        self.balance = starting_balance\n    def deposit(self, amount: int) -> int:",
+        "detail": "app.calculations",
+        "documentation": {}
+    },
+    {
+        "label": "substract",
+        "kind": 2,
+        "importPath": "app.calculations",
+        "description": "app.calculations",
+        "peekOfCode": "def substract(num1: int, num2: int) -> int:\n    return num1 - num2\nclass InsufficientFunds(Exception):\n    pass\nclass BankAccount():\n    def __init__(self, starting_balance: int = 0):\n        self.balance = starting_balance\n    def deposit(self, amount: int) -> int:\n        self.balance += amount\n        return self.balance",
+        "detail": "app.calculations",
         "documentation": {}
     },
     {
@@ -1027,7 +1154,7 @@
         "kind": 2,
         "importPath": "app.main",
         "description": "app.main",
-        "peekOfCode": "def root():\n    return {\"message\": \"Hello guys\"}",
+        "peekOfCode": "def root():\n    return {\"message\": \"Hello guys!\"}",
         "detail": "app.main",
         "documentation": {}
     },
@@ -1263,6 +1390,141 @@
         "description": "app.utils",
         "peekOfCode": "pwd_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")\ndef hash(password: str):\n  return pwd_context.hash(password)\ndef verify(plain_password: str, hashed_password: str):\n  return pwd_context.verify(plain_password, hashed_password)",
         "detail": "app.utils",
+        "documentation": {}
+    },
+    {
+        "label": "zero_bank_account",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def zero_bank_account():\n    return BankAccount()\n@pytest.fixture\ndef hundred_bank_account():\n    return BankAccount(100)\n@pytest.mark.parametrize(\"num1,num2,expected\", [\n  (1, 2, 3),\n  (0, 0, 0),\n  (-1, -1, -2),\n  (-1, 1, 0),",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "hundred_bank_account",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def hundred_bank_account():\n    return BankAccount(100)\n@pytest.mark.parametrize(\"num1,num2,expected\", [\n  (1, 2, 3),\n  (0, 0, 0),\n  (-1, -1, -2),\n  (-1, 1, 0),\n  (1, -1, 0),\n  (1, 0, 1),\n  (0, 1, 1),",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_add",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_add(num1, num2, expected):\n  assert add(num1, num2) == expected\ndef test_multiply():\n  assert multiply(1, 2) == 2\n  assert multiply(0, 0) == 0\n  assert multiply(-1, -1) == 1\n  assert multiply(-1, 1) == -1\n  assert multiply(1, -1) == -1\n  assert multiply(1, 0) == 0\n  assert multiply(0, 1) == 0",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_multiply",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_multiply():\n  assert multiply(1, 2) == 2\n  assert multiply(0, 0) == 0\n  assert multiply(-1, -1) == 1\n  assert multiply(-1, 1) == -1\n  assert multiply(1, -1) == -1\n  assert multiply(1, 0) == 0\n  assert multiply(0, 1) == 0\n  assert multiply(0, -1) == 0\n  assert multiply(-1, 0) == 0",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_divide",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_divide():\n  assert divide(1, 2) == 0.5\n  assert divide(-1, -1) == 1\n  assert divide(-1, 1) == -1\n  assert divide(1, -1) == -1\n  assert divide(0, 1) == 0\n  assert divide(0, -1) == -0.0\ndef test_substract():\n  assert substract(1, 2) == -1\n  assert substract(0, 0) == 0",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_substract",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_substract():\n  assert substract(1, 2) == -1\n  assert substract(0, 0) == 0\n  assert substract(-1, -1) == 0\n  assert substract(-1, 1) == -2\n  assert substract(1, -1) == 2\n  assert substract(1, 0) == 1\n  assert substract(0, 1) == -1\n  assert substract(0, -1) == 1\n  assert substract(-1, 0) == -1",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_bank_set_initial_amount",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_bank_set_initial_amount():\n  account = BankAccount(100)\n  assert account.check_balance() == 100\ndef test_bank_set_initial_amount_default(zero_bank_account): \n  assert zero_bank_account.balance == 0\ndef test_bank_deposit(hundred_bank_account):\n    assert hundred_bank_account.deposit(100) == 200\n    assert hundred_bank_account.deposit(100) == 300\n    assert hundred_bank_account.deposit(100) == 400\ndef test_bank_withdraw(hundred_bank_account): ",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_bank_set_initial_amount_default",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_bank_set_initial_amount_default(zero_bank_account): \n  assert zero_bank_account.balance == 0\ndef test_bank_deposit(hundred_bank_account):\n    assert hundred_bank_account.deposit(100) == 200\n    assert hundred_bank_account.deposit(100) == 300\n    assert hundred_bank_account.deposit(100) == 400\ndef test_bank_withdraw(hundred_bank_account): \n    assert hundred_bank_account.withdraw(25) ==  75\n    assert hundred_bank_account.withdraw(25) ==  50\n    assert hundred_bank_account.withdraw(45) ==  5",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_bank_deposit",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_bank_deposit(hundred_bank_account):\n    assert hundred_bank_account.deposit(100) == 200\n    assert hundred_bank_account.deposit(100) == 300\n    assert hundred_bank_account.deposit(100) == 400\ndef test_bank_withdraw(hundred_bank_account): \n    assert hundred_bank_account.withdraw(25) ==  75\n    assert hundred_bank_account.withdraw(25) ==  50\n    assert hundred_bank_account.withdraw(45) ==  5\ndef test_bank_insufficient_funds(hundred_bank_account):\n    with pytest.raises(InsufficientFunds):",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_bank_withdraw",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_bank_withdraw(hundred_bank_account): \n    assert hundred_bank_account.withdraw(25) ==  75\n    assert hundred_bank_account.withdraw(25) ==  50\n    assert hundred_bank_account.withdraw(45) ==  5\ndef test_bank_insufficient_funds(hundred_bank_account):\n    with pytest.raises(InsufficientFunds):\n        hundred_bank_account.withdraw(101) \ndef test_bank_collect_interest(hundred_bank_account):\n    hundred_bank_account.collect_interest()\n    assert round(hundred_bank_account.check_balance(), 6) == 110",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_bank_insufficient_funds",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_bank_insufficient_funds(hundred_bank_account):\n    with pytest.raises(InsufficientFunds):\n        hundred_bank_account.withdraw(101) \ndef test_bank_collect_interest(hundred_bank_account):\n    hundred_bank_account.collect_interest()\n    assert round(hundred_bank_account.check_balance(), 6) == 110\n@pytest.mark.parametrize('deposited, withdraw, expected', [\n    (100, 50, 50),\n    (100, 25, 75),\n    (100, 100, 0),",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_bank_collect_interest",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_bank_collect_interest(hundred_bank_account):\n    hundred_bank_account.collect_interest()\n    assert round(hundred_bank_account.check_balance(), 6) == 110\n@pytest.mark.parametrize('deposited, withdraw, expected', [\n    (100, 50, 50),\n    (100, 25, 75),\n    (100, 100, 0),\n    (100, 0, 100),\n    (0, 0, 0),\n    (-100, -100, 0),",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_bank_transaction",
+        "kind": 2,
+        "importPath": "tests.test_calculations",
+        "description": "tests.test_calculations",
+        "peekOfCode": "def test_bank_transaction(zero_bank_account, deposited, withdraw, expected):\n    zero_bank_account.deposit(deposited)\n    zero_bank_account.withdraw(withdraw)\n    assert zero_bank_account.check_balance() == expected",
+        "detail": "tests.test_calculations",
+        "documentation": {}
+    },
+    {
+        "label": "test_read_root",
+        "kind": 2,
+        "importPath": "tests.test_users",
+        "description": "tests.test_users",
+        "peekOfCode": "def test_read_root():\n    response = client.get(\"/\")\n    assert response.status_code == 200\n    assert response.json() == {\"message\": \"Hello guys!\"}",
+        "detail": "tests.test_users",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "tests.test_users",
+        "description": "tests.test_users",
+        "peekOfCode": "client = TestClient(app)\ndef test_read_root():\n    response = client.get(\"/\")\n    assert response.status_code == 200\n    assert response.json() == {\"message\": \"Hello guys!\"}",
+        "detail": "tests.test_users",
         "documentation": {}
     }
 ]

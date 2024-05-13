@@ -32,6 +32,5 @@ def get_user(id: int, db: Session = Depends(get_db)):
 # get all users from database
 @router.get("/", response_model=list[schemas.UserOut])
 def get_all_users(db: Session = Depends(get_db), email: str = ""):
-    # search filter user by email
     users = db.query(models.User).filter(models.User.email.contains(email)).all()
     return users
